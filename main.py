@@ -84,9 +84,6 @@ class FP_Converter_To_Bin:
         print('\033[96m' + "SIGN" + '\033[0m\033[92m' + "  EXPONENT" + '\033[0m\033[93m' + "         Mantissa" + '\033[0m')
 
 
-
-
-
 newInst = FP_Converter_To_Bin(263.3)
 print(newInst.ReturnFracWhole())
 print(newInst.Whole2Bin())
