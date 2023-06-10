@@ -12,4 +12,15 @@ def fractal_to_binary(fraction):
 
     return out
 
-print(fractal_to_binary(0.3))
+print(fractal_to_binary(0.365))
+
+def Frac2Bin(prec):                #Tutaj jest babol
+        frac = prec
+        binRep = ""
+        for i in range(23):
+            frac *= 2
+            binRep += str(int(frac / 10**prec))
+            frac %= 10**prec
+        return(binRep)
+
+print(Frac2Bin(0.365))

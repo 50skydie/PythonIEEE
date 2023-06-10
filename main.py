@@ -25,7 +25,7 @@ class FP_Converter_To_Bin:
             if int(x) > 0:
                 break
             i2r = len(i) - index
-        return int(i[0:i2r-1])
+        return int(i[0:i2r-1])/10**(i2r-1)
     
     def ReturnWhole(self):
         return abs(int(self.SplitDotNum()[0]))
@@ -44,14 +44,14 @@ class FP_Converter_To_Bin:
             whole = int(whole/2)
         return binRep[::-1]
     
-    def Frac2Bin(self, prec):                #Tutaj jest babol
-        frac = self.ReturnFracWithPrec()
-        binRep = ""
-        for i in range(self.GetFracRange()):
-            frac *= 2
-            binRep += str(int(frac / 10**prec))
-            frac %= 10**prec
-        return(binRep)
+    def Frac2Bin(self, fraction = 0):                #Tutaj jest babol
+        out = ""
+        fraction = self.ReturnFracWithPrec()
+        while fraction > 0:
+            fraction *= 2
+            out += str(int(fraction))
+            fraction -= int(fraction)
+        return(out)
     
     def Exp2Bin(self, _whole):
         whole = _whole
@@ -77,10 +77,10 @@ class FP_Converter_To_Bin:
         return len(self.GetExpBits())
     
     def PrintSimpleBinaryNotation(self):
-        print(f"{self.Whole2Bin()}.{self.Frac2Bin(1)}")
+        print(f"{self.Whole2Bin()}.{self.Frac2Bin()}")
     
     def PrintScientificNotation(self):
-        print("1."+self.GetExpBits()+self.Frac2Bin(1) + " * 2^"+ str(self.GetExpBitsLen()))
+        print("1."+self.GetExpBits()+self.Frac2Bin() + " * 2^"+ str(self.GetExpBitsLen()))
     
     def PrintFinalNumber(self):
         print( '\033[96m' + self.GetSignBit() + '\033[0m\033[92m' +  self.ReturnExponent() + '\033[0m\033[93m' + self.ReturnMantisa() + '\033[0m')
@@ -90,11 +90,11 @@ class FP_Converter_To_Bin:
         print('\033[96m' + "SIGN" + '\033[0m\033[92m' + "  EXPONENT" + '\033[0m\033[93m' + "         Mantissa" + '\033[0m')
 
 
-newInst = FP_Converter_To_Bin(263.365)
+newInst = FP_Converter_To_Bin(17.125)
 print(newInst.ReturnFracWhole())
 print(newInst.Whole2Bin())
 print(newInst.GetFracRange())
-print(newInst.Frac2Bin(1))
+print(newInst.Frac2Bin())
 print("Simple Binary Notation")
 newInst.PrintSimpleBinaryNotation()
 print("Scientific Notation")
