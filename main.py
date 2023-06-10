@@ -18,8 +18,14 @@ class FP_Converter_To_Bin:
     def ReturnFrac(self):
         return abs(self.SplitDotNum()[1])
     
-    def ReturnFracWithPrec(self, prec):
-        return abs(int(self.ReturnFrac()*(10**prec)))
+    def ReturnFracWithPrec(self):
+        i =  str(abs(int(self.ReturnFrac()*(10**10))))
+        i2r = 0
+        for index, x in enumerate(i[::-1]):
+            if int(x) > 0:
+                break
+            i2r = len(i) - index
+        return int(i[0:i2r-1])
     
     def ReturnWhole(self):
         return abs(int(self.SplitDotNum()[0]))
@@ -39,7 +45,7 @@ class FP_Converter_To_Bin:
         return binRep[::-1]
     
     def Frac2Bin(self, prec):                #Tutaj jest babol
-        frac = self.ReturnFracWithPrec(prec)
+        frac = self.ReturnFracWithPrec()
         binRep = ""
         for i in range(self.GetFracRange()):
             frac *= 2
@@ -84,7 +90,7 @@ class FP_Converter_To_Bin:
         print('\033[96m' + "SIGN" + '\033[0m\033[92m' + "  EXPONENT" + '\033[0m\033[93m' + "         Mantissa" + '\033[0m')
 
 
-newInst = FP_Converter_To_Bin(263.3)
+newInst = FP_Converter_To_Bin(263.365)
 print(newInst.ReturnFracWhole())
 print(newInst.Whole2Bin())
 print(newInst.GetFracRange())
@@ -103,3 +109,4 @@ print("Final transfer looks like:")
 newInst.PrintFinalNumber()
 print("Print goes brrrrrrrrrrrrrrrrrrrrrrrrrr\n")
 newInst.PrettyPrint()
+print(newInst.ReturnFracWithPrec())
